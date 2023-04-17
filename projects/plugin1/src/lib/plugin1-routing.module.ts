@@ -6,18 +6,18 @@ import { MainScreenComponent } from './main-screen/main-screen.component';
 export const routes: Routes = [
   {
     path: '',
-    component: MainScreenComponent
+    component: MainScreenComponent,
   },
   {
     path: 'child',
-    component: ChildScreenComponent
-  }
+    component: ChildScreenComponent,
+  },
 ];
 
 export const routerModule = RouterModule.forChild(routes);
 
 @NgModule({
   imports: [routerModule],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class Plugin1RoutingModule { }
+export class Plugin1RoutingModule {}

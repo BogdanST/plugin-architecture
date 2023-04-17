@@ -8,8 +8,9 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "serve:plugins": "http-server ./dist/ --port=4261 --cors",
-    "build:all": "ng build common && ng build plugin1 && ng build plugin2 && ng build"
+    "serve:plugins": "http-server ./dist/ --port=4261 --cors --watch",
+    "build:plugin1": "ng build plugin1 --watch",
+    "build:all": "ng build common && ng build plugin1 && ng build plugin2 && ng build --watch"
   },
   "private": true,
   "dependencies": {

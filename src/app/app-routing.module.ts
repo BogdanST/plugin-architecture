@@ -1,8 +1,22 @@
 import { NgModule } from '@angular/core';
-import { Route, RouterModule, ROUTES, UrlMatchResult, UrlSegment, UrlSegmentGroup } from '@angular/router';
+import {
+  Route,
+  RouterModule,
+  ROUTES,
+  UrlMatchResult,
+  UrlSegment,
+  UrlSegmentGroup,
+} from '@angular/router';
 import { PluginConfigService } from 'common';
+import routeConfig from '../assets/plugin-config.json';
 
-const staticRoutes: Route[] = [];
+const staticRoutes: Route[] = [
+  {
+    path: '',
+    redirectTo: '/' + routeConfig[0].path,
+    pathMatch: 'full',
+  },
+];
 
 // let service: PluginConfigService;
 
@@ -11,13 +25,15 @@ const staticRoutes: Route[] = [];
 // }
 
 @NgModule({
-  imports: [RouterModule.forRoot([
-    // ...staticRoutes,
-    // {
-    //   matcher: pluginMatcher,
-    //   loadChildren: () => import('./plugin-loader/plugin-loader.module').then((m) => m.PluginLoaderModule)
-    // }
-  ])],
+  imports: [
+    RouterModule.forRoot([
+      // ...staticRoutes,
+      // {
+      //   matcher: pluginMatcher,
+      //   loadChildren: () => import('./plugin-loader/plugin-loader.module').then((m) => m.PluginLoaderModule)
+      // }
+    ]),
+  ],
   exports: [RouterModule],
   providers: [
     {
@@ -25,10 +41,22 @@ const staticRoutes: Route[] = [];
       useFactory: (pluginConfigService: PluginConfigService) => {
         const pluginRoute = {
           // This function is called when APP_INITIALIZER is not yet completed, so matcher is the only option
-          matcher: (_segments: UrlSegment[], group: UrlSegmentGroup, _route: Route): UrlMatchResult | null =>
-            group.segments.length && pluginConfigService.value.some(plugin => plugin.path === group.segments[0].path) ? { consumed: [group.segments[0]] } : null,
+          matcher: (
+            _segments: UrlSegment[],
+            group: UrlSegmentGroup,
+            _route: Route
+          ): UrlMatchResult | null =>
+            group.segments.length &&
+            pluginConfigService.value.some(
+              (plugin) => plugin.path === group.segments[0].path
+            )
+              ? { consumed: [group.segments[0]] }
+              : null,
           // Lazy load the plugin loader module because it may contain many 'heavy' dependencies
-          loadChildren: () => import('./plugin-loader/plugin-loader.module').then((m) => m.PluginLoaderModule)
+          loadChildren: () =>
+            import('./plugin-loader/plugin-loader.module').then(
+              (m) => m.PluginLoaderModule
+            ),
         };
         return [...staticRoutes, pluginRoute];
       },
@@ -36,8 +64,8 @@ const staticRoutes: Route[] = [];
       // useValue: [],
       deps: [PluginConfigService],
       multi: true,
-    }
-  ]
+    },
+  ],
 })
 export class AppRoutingModule {
   // public constructor(private readonly pluginConfigService: PluginConfigService) {

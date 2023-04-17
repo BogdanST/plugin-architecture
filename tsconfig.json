@@ -2,6 +2,8 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
@@ -12,24 +14,12 @@
     "importHelpers": true,
     "target": "es2015",
     "paths": {
-      "common": [
-        "dist/common/common",
-        "dist/common"
-      ],
-      "plugin1": [
-        "dist/plugin1/plugin1",
-        "dist/plugin1"
-      ],
-      "plugin2": [
-        "dist/plugin2/plugin2",
-        "dist/plugin2"
-      ]
+      "common": ["dist/common/common", "dist/common"],
+      "plugin1": ["dist/plugin1/plugin1", "dist/plugin1"],
+      "plugin2": ["dist/plugin2/plugin2", "dist/plugin2"]
     },
     "module": "es2020",
-    "lib": [
-      "es2018",
-      "dom"
-    ]
+    "lib": ["es2018", "dom"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
